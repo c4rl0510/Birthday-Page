@@ -257,6 +257,43 @@
       0% { opacity: 0.4; }
       100% { opacity: 1; }
     }
+
+    @media (max-width: 640px) {
+      .page {
+        background-attachment: scroll;
+      }
+      .start-tip p {
+        font-size: 16px;
+        padding: 12px 24px;
+      }
+      .card {
+        width: 94%;
+        max-width: 100%;
+        max-height: 88vh;
+        padding: 22px 16px;
+        border-radius: 20px;
+      }
+      .title {
+        font-size: 22px;
+      }
+      .date-title {
+        font-size: 12px;
+      }
+      .desc {
+        font-size: 13px;
+        line-height: 1.8;
+      }
+      .balloon {
+        width: 28px;
+        height: 34px;
+      }
+      .heart {
+        font-size: 18px;
+      }
+      .star {
+        font-size: 12px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -301,6 +338,7 @@
   const signText = document.getElementById('signText');
   const dateText = document.getElementById('dateText');
   const bgMusic = document.getElementById('bgMusic');
+  const isMobile = window.innerWidth <= 640;
   let isOpen = false;
 
   // 完整原歌词文案
@@ -393,14 +431,17 @@
 
     createBalloon();
     createHeart();
-    createStar();
-    startFirework();
+    if (!isMobile) {
+      createStar();
+      startFirework();
+    }
   });
 
   // 气球
   function createBalloon(){
     const colors = ['#ff85a2','#72ddf7','#ffda77','#b67fff','#ff9bbb'];
-    for(let i=0;i<12;i++){
+    const count = isMobile ? 6 : 12;
+    for(let i=0;i<count;i++){
       let b = document.createElement('div');
       b.className = 'balloon';
       b.style.cssText = `left:${Math.random()*90}%;bottom:${Math.random()*60}px;background:${colors[i%colors.length]};animation-delay:${Math.random()*4}s;`;
@@ -410,7 +451,8 @@
 
   // 爱心
   function createHeart(){
-    for(let i=0;i<20;i++){
+    const count = isMobile ? 8 : 20;
+    for(let i=0;i<count;i++){
       let h = document.createElement('div');
       h.className = 'heart';
       h.innerText = '❤️';
